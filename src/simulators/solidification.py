@@ -60,8 +60,37 @@ class MicrogravitySolidificationSim:
         spacing = c_micrograv * (cooling_rate**-0.4)
         return spacing
 
+    def simulate_2d_heat(self, size=50, steps=100):
+        """
+        Simulates 2D heat distribution on a cross-section of the material.
+        Simplified Finite Difference Method (FDM) for zero-G.
+        """
+        logger.info(f"Starting 2D thermal mapping for {self.material_name} ({size}x{size} mesh)...")
+        
+        # Thermal diffusivity alpha
+        alpha = self.props['thermal_conductivity'] / (self.props['density'] * self.props['specific_heat'])
+        dx = 0.001 # 1mm mesh
+        dt = 0.01
+        
+        # Stability condition: alpha * dt / dx^2 < 0.25 (for 2D)
+        
+        # Initial grid: molten material inside, cold boundary
+        u = np.ones((size, size)) * self.props['melting_point']
+        u[0, :] = u[-1, :] = u[:, 0] = u[:, -1] = 300 # Boundary temp
+        
+        # Simplified time-stepping
+        for _ in range(steps):
+            u_next = u.copy()
+            u_next[1:-1, 1:-1] = u[1:-1, 1:-1] + alpha * dt / dx**2 * (
+                u[2:, 1:-1] + u[:-2, 1:-1] + u[1:-1, 2:] + u[1:-1, :-2] - 4*u[1:-1, 1:-1]
+            )
+            u = u_next
+            
+        logger.info("2D Simulation complete.")
+        return u
+
 if __name__ == "__main__":
     sim = MicrogravitySolidificationSim("CMSX-4")
     t, temp = sim.simulate_cooling()
-    pdas = sim.calculate_pdas(cooling_rate=5.0)
-    print(f"Calculated PDAS for CMSX-4: {pdas:.4f} μm")
+    heatmap = sim.simulate_2d_heat(size=50)
+    print(f"2D Heatmap Center Temp: {heatmap[25, 25]:.2f} K")

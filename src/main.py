@@ -44,6 +44,7 @@ def main():
         print(f"Öngörülen PDAS (Sıfır-G): {pdas:.2f} um")
 
         if args.visualize:
+            # 1D Chart
             plt.figure(figsize=(10, 6))
             plt.plot(time, temp, label=f'{args.material} Soğutma Profili', color='cyan')
             plt.axhline(y=300, color='r', linestyle='--', label='Sınır Sıcaklığı')
@@ -53,9 +54,21 @@ def main():
             plt.grid(True, alpha=0.3)
             plt.legend()
             
-            output_path = os.path.join('simulations', f'{args.material}_sogutma.png')
-            plt.savefig(output_path)
-            print(f"Görselleştirme kaydedildi: {output_path}")
+            output_1d = os.path.join('simulations', f'{args.material}_sogutma.png')
+            plt.savefig(output_1d)
+            print(f"1D Görselleştirme kaydedildi: {output_1d}")
+
+            # 2D Heatmap
+            print("2D Termal Haritalama başlatılıyor...")
+            heatmap = sim.simulate_2d_heat(size=60)
+            plt.figure(figsize=(8, 8))
+            plt.imshow(heatmap, cmap='hot', interpolation='nearest')
+            plt.colorbar(label='Sıcaklık (K)')
+            plt.title(f"2D Termal Harita (Kesit) - {args.material}")
+            
+            output_2d = os.path.join('simulations', f'{args.material}_isi_haritasi.png')
+            plt.savefig(output_2d)
+            print(f"2D Görselleştirme kaydedildi: {output_2d}")
 
     if not any([args.run_opt, args.run_sim, args.test]):
         parser.print_help()
