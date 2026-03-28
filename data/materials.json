@@ -1,0 +1,26 @@
+{
+  "Inconel-718": {
+    "melting_point": 1608,
+    "density": 8190,
+    "specific_heat": 435,
+    "thermal_conductivity": 11.4,
+    "latent_heat": 210000,
+    "expansion_coeff": 1.3e-5
+  },
+  "CMSX-4": {
+    "melting_point": 1660,
+    "density": 8700,
+    "specific_heat": 450,
+    "thermal_conductivity": 22.0,
+    "latent_heat": 250000,
+    "expansion_coeff": 1.2e-5
+  },
+  "ZBLAN": {
+    "melting_point": 533,
+    "density": 4330,
+    "specific_heat": 150,
+    "thermal_conductivity": 0.5,
+    "latent_heat": 80000,
+    "expansion_coeff": 1.5e-5
+  }
+}
