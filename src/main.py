@@ -41,7 +41,7 @@ def main():
         print(f"Final Temp: {temp[-1]:.2f} K")
         
         pdas = sim.calculate_pdas(cooling_rate=10.0)
-        print(f"Predicted PDAS (Zero-G): {pdas:.2f} μm")
+        print(f"Predicted PDAS (Zero-G): {pdas:.2f} um")
 
         if args.visualize:
             plt.figure(figsize=(10, 6))
