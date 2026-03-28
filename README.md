@@ -1,90 +1,89 @@
-# MicroGrav-Materials-Optimizer
+# MicroGrav-Materials-Optimizer (Mikro-Yerçekimi Malzeme Optimizatörü)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Lisans: MIT](https://img.shields.io/badge/Lisans-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TUA Astrohackathon 2026](https://img.shields.io/badge/Hackathon-TUA_Astrohackathon_2026-blue.svg)](https://tua.gov.tr)
-[![Scientific Computing](https://img.shields.io/badge/Scientific-Optimization-green.svg)](https://scipy.org)
+[![Bilimsel Hesaplama](https://img.shields.io/badge/Bilimsel-Optimizasyon-green.svg)](https://scipy.org)
 
-## 🌌 Overview
-**MicroGrav-Materials-Optimizer** is an advanced computational framework designed to optimize material manufacturing processes in microgravity environments. Developed for the **TUA Astro Hackathon 2026**, this tool leverages Bayesian optimization and physical simulation to identify ideal processing parameters for high-performance alloys and crystals outside Earth's gravitational influence.
+## 🌌 Genel Bakış
+**MicroGrav-Materials-Optimizer**, mikro-yerçekimi ortamlarında (ISS veya gelecekteki ticari uzay istasyonları gibi) malzeme üretim süreçlerini optimize etmek için tasarlanmış gelişmiş bir hesaplama çerçevesidir. **TUA Astro Hackathon 2026** için geliştirilen bu araç, Dünya yerçekimi etkisi dışındaki yüksek performanslı alaşımlar ve kristaller için ideal işleme parametrelerini belirlemek amacıyla Bayes optimizasyonu ve fiziksel simülasyon kullanır.
 
-### 🔬 The Microgravity Advantage
-Manufacturing in space eliminates gravity-driven buoyancy, convection, and sedimentation. This allows for:
-- **Homogeneous Solidification:** Suppressing convection leads to uniform dendrite growth in superalloys.
-- **Enhanced Crystal Purity:** Removing buoyancy-induced flows creates perfect semiconductor and pharmaceutical crystals.
-- **Containerless Processing:** Surface tension-dominated environments prevent contamination from crucible walls.
-
----
-
-## 🚀 Key Features
-
-### 1. Bayesian Process Optimizer
-Utilizes Gaussian Process Regressors to minimize dendrite arm spacing (DAS) and defects in Nickel-based superalloys.
-- **Parameters:** Cooling rate, temperature gradient, gas pressure.
-- **Objective:** Maximal structural integrity and thermal resistance.
-
-### 2. Micro-Solidification Simulator
-A high-fidelity numerical model simulating the transition from liquid to solid phase in zero-G environments.
-- **Diffusive Transport Model:** Modeling heat transfer without convection currents.
-- **Dendrite Formation:** Visualizing secondary arm growth patterns.
-
-### 3. ROI Analytics for Space Manufacturing
-A strategic module calculating the economic viability of space-produced materials (e.g., ZBLAN optical fibers) compared to terrestrial production.
+### 🔬 Mikro-Yerçekimi Avantajı
+Uzayda üretim; yerçekimi kaynaklı kaldırma kuvveti (buoyancy), konveksiyon ve çökelmeyi ortadan kaldırır. Bu şunları sağlar:
+- **Homojen Katılaşma:** Konveksiyonun bastırılması, süper alaşımlarda tek tip dendrit büyümesine yol açar.
+- **Gelişmiş Kristal Saflığı:** Kaldırma kuvveti kaynaklı akışların kaldırılması, mükemmel yarı iletken ve farmasötik kristaller oluşturur.
+- **Konteynırsız İşleme:** Yüzey gerilimi odaklı ortamlar, pota duvarlarından kaynaklanan kirlenmeyi önler.
 
 ---
 
-## 🏗 System Architecture
+## 🚀 Temel Özellikler
+
+### 1. Bayes Süreç Optimizatörü
+Nikel bazlı süper alaşımlarda dendrit kol aralığını (DAS) ve kusurları en aza indirmek için Gauss Süreci Regresörlerini kullanır.
+- **Parametreler:** Soğutma hızı, sıcaklık gradyanı, gaz basıncı.
+- **Hedef:** Maksimum yapısal bütünlük ve termal direnç.
+
+### 2. Mikro-Katılaşma Simülatörü
+Sıfır-G ortamlarında sıvıdan katı faza geçişi simüle eden yüksek sadakatli bir sayısal model.
+- **Difüzif Taşıma Modeli:** Konveksiyon akımları olmadan ısı transferini modeller.
+- **Dendrit Oluşumu:** İkincil kol büyüme modellerini görselleştirir.
+
+### 3. Uzay Üretimi ROI Analitiği
+Uzayda üretilen malzemelerin (örneğin ZBLAN optik fiberler) karasal üretime kıyasla ekonomik uygulanabilirliğini hesaplayan stratejik modül.
+
+---
+
+## 🏗 Sistem Mimarisi
 
 ```mermaid
 graph TD
-    A[Manufacturing Goals] --> B{Optimizer Engine}
-    B --> C[Bayesian Optimization]
-    B --> D[Genetic Algorithms]
-    C --> E[Simulator Core]
+    A[Üretim Hedefleri] --> B{Optimizasyon Motoru}
+    B --> C[Bayes Optimizasyonu]
+    B --> D[Genetik Algoritmalar]
+    C --> E[Simülatör Çekirdeği]
     D --> E
-    E --> F[Thermal Models]
-    E --> G[Phased Field Simulation]
-    F --> H[Results Analysis]
+    E --> F[Termal Modeller]
+    E --> G[Faz Alanı Simülasyonu]
+    F --> H[Sonuç Analizi]
     G --> H
-    H --> I[Optimal Recipe Output]
+    H --> I[Optimal Reçete Çıktısı]
 ```
 
 ---
 
-## 🛠 Installation
+## 🛠 Kurulum
 
 ```bash
-# Clone the repository
+# Depoyu klonlayın
 git clone https://github.com/yunus/MicroGrav-Materials-Optimizer.git
 
-# Install dependencies
+# Bağımlılıkları yükleyin
 pip install -r requirements.txt
 ```
 
-## 📖 Usage Examples
+## 📖 Kullanım Örnekleri
 
-### Running an Optimization Cycle
+### Optimizasyon Döngüsünü Çalıştırma
 ```python
 from src.optimizers.bayesian import ProcessOptimizer
 
 optimizer = ProcessOptimizer(material="Inconel-718")
 best_params = optimizer.run(trials=50)
-print(f"Optimal Cooling Rate: {best_params['cooling_rate']} K/s")
+print(f"Optimal Soğutma Hızı: {best_params['cooling_rate']} K/s")
 ```
 
 ---
 
-## 📄 Documentation
-- [Mathematical Foundation](docs/math_foundation.md)
-- [Material Library](data/materials.json)
-- [Simulation Engine Technical Spec](docs/simulation_spec.md)
+## 📄 Belgeler
+- [Matematiksel Temeller](docs/technical_spec.md)
+- [Malzeme Kütüphanesi](data/materials.json)
 
 ---
 
-## 🤝 Contributing
-Contributions are welcome! Please see the [Contributing Guidelines](CONTRIBUTING.md) for more information.
+## 🤝 Katkıda Bulunma
+Katkılarınızı bekliyoruz! Daha fazla bilgi için lütfen Katkı Yönergesine bakın.
 
-## ⚖ License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## ⚖ Lisans
+Bu proje MIT Lisansı ile lisanslanmıştır - ayrıntılar için [LICENSE](LICENSE) dosyasına bakın.
 
 ---
-**Developed with ❤️ for the TUA Astro Hackathon 2026**
+**TUA Astro Hackathon 2026 için ❤️ ile geliştirilmiştir**

@@ -1,28 +1,28 @@
-# Microgravity Materials Optimization: Technical Specification
+# Mikro-Yerçekimi Malzeme Optimizasyonu: Teknik Şartname
 
-## 1. Thermal Solidification Model
-In the absence of gravity ($g \approx 0$), buoyancy-driven convection is eliminated. The heat transfer is governed primarily by conduction:
+## 1. Termal Katılaşma Modeli
+Yerçekiminin yokluğunda ($g \approx 0$), kaldırma kuvvetine bağlı konveksiyon ortadan kalkar. Isı transferi temel olarak iletim (kondüksiyon) ile kontrol edilir:
 
 $$\rho c_p \frac{\partial T}{\partial t} = k \nabla^2 T + L \frac{\partial \phi}{\partial t}$$
 
-Where:
-- $\rho$: Density
-- $c_p$: Specific heat
-- $k$: Thermal conductivity
-- $L$: Latent heat of fusion
-- $\phi$: Phase fraction
+Burada:
+- $\rho$: Yoğunluk
+- $c_p$: Özgül ısı
+- $k$: Termal iletkenlik
+- $L$: Gizli füzyon ısısı
+- $\phi$: Faz fraksiyonu
 
-### 1.1 Analytical Approximation
-For a semi-infinite solid with constant boundary temperature $T_b$, the temperature profile at depth $x$ is:
+### 1.1 Analitik Yaklaşım
+Sabit sınır sıcaklığı $T_b$ olan yarı sonsuz bir katı için, $x$ derinliğindeki sıcaklık profili şu şekildedir:
 $$T(x,t) = T_b + (T_i - T_b) \cdot erf\left(\frac{x}{2\sqrt{\alpha t}}\right)$$
-Where $\alpha = \frac{k}{\rho c_p}$ is the thermal diffusivity.
+Burada $\alpha = \frac{k}{\rho c_p}$ termal difüzivitedir.
 
-## 2. Dendrite Arm Spacing (DAS)
-The primary dendrite arm spacing ($\lambda_1$) in microgravity is significantly different from terrestrial values due to the lack of convective thinning at the dendrite tips.
+## 2. Dendrit Kol Aralığı (DAS)
+Mikro-yerçekiminde birincil dendrit kol aralığı ($\lambda_1$), dendrit uçlarındaki konvektif incelme olmaması nedeniyle karasal değerlerden önemli ölçüde farklıdır.
 
 $$\lambda_1 = C \cdot G^{-1/2} \cdot V^{-1/4}$$
 
-In our engine, we use an adjusted constant $C_{space} \approx 1.3 \cdot C_{earth}$ to reflect the larger, more uniform structures observed in ISS experiments (e.g., METCOMP, MICAST).
+Motorumuzda, ISS deneylerinde (örneğin METCOMP, MICAST) gözlemlenen daha büyük ve daha homojen yapıları yansıtmak için ayarlanmış bir sabit $C_{space} \approx 1.3 \cdot C_{earth}$ kullanıyoruz.
 
-## 3. Optimization Strategy
-The Bayesian Optimizer uses a Gaussian Process (GP) surrogate model to map the high-dimensional parameter space (Cooling Rate, Gradient, Pressure) to a quality metric defined by structural integrity and microstructural uniformity.
+## 3. Optimizasyon Stratejisi
+Bayes Optimizatörü, yüksek boyutlu parametre uzayını (Soğutma Hızı, Gradyan, Basınç), yapısal bütünlük ve mikroyapısal tekdüzelik tarafından tanımlanan bir kalite metriğine eşlemek için bir Gauss Süreci (GP) vekil modeli kullanır.
